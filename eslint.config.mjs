@@ -46,6 +46,8 @@ export default tseslint.config(
       ],
       'prettier/prettier': ['error'],
       '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/await-thenable': 'off',
+      '@typescript-eslint/require-await': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
         {

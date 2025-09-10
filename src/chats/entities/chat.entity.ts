@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
-import { Message } from './message.entity';
+import { ChatMessage } from './chat-message.entity';
 
 @Entity('chats')
 export class Chat {
@@ -9,18 +9,18 @@ export class Chat {
   @Column('uuid')
   contactId: string;
 
-  @Column()
-  contactName: string;
+  @Column({ default: false })
+  pinned: boolean;
 
-  @Column()
-  contactUserName: string;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createTs: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+  updateTs: Date;
+
+  @OneToMany(() => ChatMessage, (message) => message.chat, { cascade: true })
+  messages: ChatMessage[];
 
   @Column({ default: false })
-  isOnline: boolean;
-
-  @Column({ type: 'timestamp', nullable: true })
-  onlineDateTimeTs: Date;
-
-  @OneToMany(() => Message, (message) => message.chat)
-  messages: Message[];
+  archived: boolean;
 }
