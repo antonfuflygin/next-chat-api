@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Chat } from 'src/chats/entities/chat.entity';
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -28,4 +29,18 @@ export class User {
 
   @Column({ type: 'timestamp', nullable: true })
   lastSeenTs: Date;
+
+  @ManyToMany(() => Chat, (chat) => chat.users)
+  @JoinTable({
+    name: 'user_chats', // имя таблицы связи
+    joinColumn: {
+      name: 'user_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'chat_id',
+      referencedColumnName: 'id',
+    },
+  })
+  chats: Chat[];
 }

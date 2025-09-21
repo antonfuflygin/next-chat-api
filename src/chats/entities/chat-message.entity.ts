@@ -9,6 +9,12 @@ export class ChatMessage {
   @Column('text')
   text: string;
 
+  @Column('uuid')
+  fromUserId: string;
+
+  @Column('uuid')
+  toUserId: string;
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createTs: Date;
 

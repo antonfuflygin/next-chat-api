@@ -1,4 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm';
+import { User } from './../../users/entities/user.entity';
 import { ChatMessage } from './chat-message.entity';
 
 @Entity('chats')
@@ -23,4 +24,7 @@ export class Chat {
 
   @Column({ default: false })
   archived: boolean;
+
+  @ManyToMany(() => User, (user) => user.chats)
+  users: User[];
 }

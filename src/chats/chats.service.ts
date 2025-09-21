@@ -13,15 +13,15 @@ export class ChatsService {
   ) {}
 
   create(createChatDto: CreateChatDto) {
-    return 'This action adds a new chat';
+    return this.chatsRepository.create(createChatDto);
   }
 
   findAll() {
     return this.chatsRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} chat`;
+  findOne(id: string) {
+    return this.chatsRepository.findOne({ where: { id } });
   }
 
   update(id: number, updateChatDto: UpdateChatDto) {
