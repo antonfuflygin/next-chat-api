@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import type { Request, Response } from 'express';
-import type { IAuthRequest } from '../shared/types/user.types';
+import type { IRequestWithUser } from '../shared/types/user.types';
 import { UsersService } from '../users/users.service';
 import { CookieAuthenticationGuard } from './cookie.guard';
 import { RegisterDto } from './dto/register.dto';
@@ -12,7 +12,7 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(AuthGuard('local'))
-  async login(@Req() req: IAuthRequest) {
+  async login(@Req() req: IRequestWithUser) {
     return new Promise((resolve, reject) => {
       req.login(req.user, (err) => {
         if (err) {
@@ -24,7 +24,7 @@ export class AuthController {
   }
 
   @Post('registration')
-  async registration(@Body() creds: RegisterDto, @Req() req: IAuthRequest) {
+  async registration(@Body() creds: RegisterDto, @Req() req: IRequestWithUser) {
     const user = await this.usersService.create(creds);
 
     return new Promise((resolve, reject) => {

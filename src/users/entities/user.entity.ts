@@ -1,5 +1,5 @@
-import { Chat } from 'src/chats/entities/chat.entity';
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Chat } from 'src/chats/entities/chat.entity';
 
 @Entity('users')
 export class User {

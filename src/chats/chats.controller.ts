@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { ChatsService } from './chats.service';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
+import { CookieAuthenticationGuard } from 'src/auth/cookie.guard';
+import type { IRequestWithUser } from 'src/shared/types/user.types';
 
 @Controller('chats')
 export class ChatsController {
@@ -13,8 +15,9 @@ export class ChatsController {
   }
 
   @Get()
-  findAll() {
-    return this.chatsService.findAll();
+  @UseGuards(CookieAuthenticationGuard)
+  findAll(@Req() req: IRequestWithUser) {
+    return this.chatsService.findAll(req.user.id);
   }
 
   @Get(':id')

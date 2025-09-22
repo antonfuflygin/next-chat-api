@@ -7,12 +7,6 @@ export class Chat {
   @PrimaryColumn('uuid')
   id: string;
 
-  @Column('uuid')
-  contactId: string;
-
-  @Column({ default: false })
-  pinned: boolean;
-
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createTs: Date;
 

@@ -33,4 +33,8 @@ export class UsersService {
   async findByPhoneNumber(phoneNumber: number): Promise<User | null> {
     return await this.userRepository.findOne({ where: { phoneNumber } });
   }
+
+  async findByUsername(username: string): Promise<User | null> {
+    return await this.userRepository.findOne({ where: { username } });
+  }
 }

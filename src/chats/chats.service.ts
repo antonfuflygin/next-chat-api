@@ -16,8 +16,12 @@ export class ChatsService {
     return this.chatsRepository.create(createChatDto);
   }
 
-  findAll() {
-    return this.chatsRepository.find();
+  findAll(userId: string) {
+    return this.chatsRepository
+      .createQueryBuilder('chat')
+      .innerJoin('chat.users', 'user')
+      .where('user.id = :userId', { userId })
+      .getMany();
   }
 
   findOne(id: string) {

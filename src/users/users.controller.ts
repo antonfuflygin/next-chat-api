@@ -1,6 +1,6 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { CookieAuthenticationGuard } from '../auth/cookie.guard';
-import type { IAuthRequest } from '../shared/types/user.types';
+import type { IRequestWithUser } from '../shared/types/user.types';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -9,7 +9,13 @@ export class UsersController {
 
   @Get('me')
   @UseGuards(CookieAuthenticationGuard)
-  async getMe(@Req() req: IAuthRequest) {
+  async getMe(@Req() req: IRequestWithUser) {
     return await this.userService.findById(req.user.id);
+  }
+
+  @Get('users')
+  @UseGuards(CookieAuthenticationGuard)
+  async findByUsername(@Query('username') username: string) {
+    return await this.userService.findByUsername(username);
   }
 }

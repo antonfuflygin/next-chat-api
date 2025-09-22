@@ -13,7 +13,7 @@ export default tseslint.config(
   ...tseslint.configs.recommendedTypeChecked,
   eslintPluginPrettierRecommended,
   {
-    extends: [eslintPluginImport.flatConfigs.recommended, eslintPluginImport.flatConfigs.typescript]
+    extends: [eslintPluginImport.flatConfigs.recommended, eslintPluginImport.flatConfigs.typescript],
   },
   {
     languageOptions: {
@@ -57,4 +57,19 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    settings: {
+      'import/resolver': {
+        typescript: {
+          // Использует tsconfig.json для разрешения путей
+          alwaysTryTypes: true,
+          project: './tsconfig.json', // укажите путь к вашему tsconfig
+        },
+        node: {
+          paths: ['src'], // базовая директория для абсолютных импортов
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
+      },
+    },
+  }
 );

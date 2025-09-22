@@ -13,7 +13,7 @@ import { UsersModule } from './users/users.module';
     ChatsModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env.windows.local',
+      envFilePath: '.env.local',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
 import { DataSource } from 'typeorm';
 
-config({ path: path.resolve(process.cwd(), '.env.windows.local') });
+config({ path: path.resolve(process.cwd(), '.env.local') });
 
 const configService = new ConfigService();
 
